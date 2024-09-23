@@ -1,46 +1,40 @@
 #ifndef __VANILLA_OPTION_H
 #define __VANILLA_OPTION_H
-class Vanilla
-{
+
+class Vanilla {
 private:
-    /* data */
-    void init();
-    void copy(const Vanilla& rhs);
+    // Private member variables
+    double K;     // Strike price
+    double T;     // Time to expiration (years)
+    double r;     // Risk-free interest rate
+    double S;     // Underlying asset price
+    double sigma; // Volatility of the underlying asset
 
-    double K; // Strike Rate
-    double T; // Expiration Time
-    double r; // risk free rate 
-    double S; // underlying price rate 
-    double sigma;    // Volatility of underlying asset
+    // Private helper methods
+    void init();                      // Initialization method
+    void copy(const Vanilla& rhs);    // Copy helper method
+
 public:
-    // Contains one default constructor and one parameter based constructor and always set a virtual distructor 
-    Vanilla(/* args */);  // Default Constructor
+    // Constructors and Destructor
+    Vanilla();                                      // Default constructor
+    Vanilla(double K, double T, double r, double S, double sigma);  // Parameterized constructor
+    Vanilla(const Vanilla& rhs);                    // Copy constructor
+    Vanilla& operator=(const Vanilla& rhs);         // Assignment operator
+    virtual ~Vanilla();                             // Virtual destructor
 
-    Vanilla(double K, double T, double r, double S, double sigma);  //  Parameterised Constructor 
-    
-    Vanilla(const Vanilla& rhs); // Copy Constructor 
-    
-    Vanilla& operator = (const Vanilla& rhs); // Assignment Operator 
-    
-    virtual ~Vanilla(); //  Distructor 
-
-    //getter methods to access private methods 
+    // Getter methods
     double getK() const;
     double getT() const;
     double getr() const;
     double getS() const;
     double getSigma() const;
-    double calc_call_price() const;
-    double calc_put_price() const;
+
+    // Option pricing methods
+    double calc_call_price() const;  // Calculate European Call price
+    double calc_put_price() const;   // Calculate European Put price
 };
 
-Vanilla::Vanilla(/* args */)
-{
-}
-
-Vanilla::~Vanilla()
-{
-}
-
+// Standard normal cumulative distribution function (to be implemented)
+double N(double x);
 
 #endif
