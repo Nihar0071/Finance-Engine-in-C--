@@ -186,7 +186,7 @@ int main() {
     const std::string data_file = "AAPL_1y_1d.csv";
     const double initial_cash = 100000.0;
     const int num_episodes = 10000;
-    const int num_stocks = 25;
+    const int num_stocks = 1;
 
     TradingEnvironment env(data_file, initial_cash, num_stocks);
     MonteCarloAgent agent(num_stocks);
