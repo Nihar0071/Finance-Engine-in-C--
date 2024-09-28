@@ -1,3 +1,15 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <random>
+#include <algorithm>
+#include <fstream>
+#include <sstream>
+#include <cmath>
+#include <numeric>
+#include <iomanip>
+
+
 class MonteCarloAgent {
 private:
     std::map<State, std::vector<std::pair<std::vector<double>, double>>> Q;
