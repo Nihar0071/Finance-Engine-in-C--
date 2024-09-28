@@ -14,8 +14,8 @@ def download_stock_data(stock_symbol, period, interval):
     stock_data = yf.download(tickers=stock_symbol, period=period, interval=interval)
     # print(stock_data)
     # Save to Excel file
-    excel_file = f"{stock_symbol}_{period}_{interval}.xlsx"
-    stock_data.to_excel(excel_file)
+    excel_file = f"{stock_symbol}_{period}_{interval}.csv"
+    stock_data.to_csv(excel_file)
     
     print(f"Data for {stock_symbol} saved to {excel_file}")
 
