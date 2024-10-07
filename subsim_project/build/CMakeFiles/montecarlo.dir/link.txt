@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libmontecarlo.a CMakeFiles/montecarlo.dir/src/montecarlo.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libmontecarlo.a

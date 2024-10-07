@@ -1,3 +1,0 @@
-/Users/niharpatel/Desktop/Quant/C++ Quant Finance /Finance-Engine-in-C--/MonteCarloR/build/CMakeFiles/MonteCarloStockSim.dir
-/Users/niharpatel/Desktop/Quant/C++ Quant Finance /Finance-Engine-in-C--/MonteCarloR/build/CMakeFiles/edit_cache.dir
-/Users/niharpatel/Desktop/Quant/C++ Quant Finance /Finance-Engine-in-C--/MonteCarloR/build/CMakeFiles/rebuild_cache.dir
