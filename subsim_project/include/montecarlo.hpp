@@ -9,9 +9,6 @@
 #include <cmath>
 #include <algorithm>
 
-// Forward declarations
-class MonteCarloSimulationEnv;
-
 // Statistical results container
 struct StatisticalResult {
     std::vector<double> values;
@@ -28,10 +25,6 @@ public:
         int n_subsimulations,
         int n_steps
     );
-
-    // Decorator-style setters for simulation functions
-    std::function<void(std::function<void(Context&)>)> subsim_begin;
-    std::function<void(std::function<void(Context&, int)>)> subsim_step;
 
     // Direct setters for simulation functions
     void set_subsim_begin_callback(std::function<void(Context&)> f);
@@ -57,7 +50,7 @@ public:
         std::vector<std::vector<double>> counts;
         std::vector<double> bin_edges;
     };
-    
+
     HistogramResult get_variable_histogram(
         const std::string& var_name,
         int n_bins,
@@ -80,3 +73,4 @@ private:
     void validate_variable(const std::string& var_name) const;
     std::vector<std::vector<double>> collect_histories(const std::string& var_name) const;
 };
+

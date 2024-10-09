@@ -1,22 +1,24 @@
 cmake_minimum_required(VERSION 3.10)
-project(MonteCarloSimulation)
+project(MonteCarloRL)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Add include directory
-include_directories(${PROJECT_SOURCE_DIR}/include)
+# Include directories
+include_directories(include)
 
-# Add library sources
-
-add_library(montecarlo STATIC
+# Source files
+set(SOURCES
+    src/example.cpp
+    src/subsim.cpp
     src/montecarlo.cpp
 )
 
-# Link libraries
-target_link_libraries(montecarlo subsim)
+# Create executable
+add_executable(monte_carlo_rl ${SOURCES})
 
-# Add executable
-add_executable(monte_carlo_example src/example.cpp)
-target_link_libraries(monte_carlo_example montecarlo)
+# Link libraries if any (e.g., pthread)
+if(UNIX)
+    target_link_libraries(monte_carlo_rl pthread)
+endif()

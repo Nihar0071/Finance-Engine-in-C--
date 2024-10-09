@@ -20,7 +20,7 @@ using ValueType = std::variant<int, double, bool, std::string>;
 // Structure to hold variable information
 struct Variable {
     std::string name;
-    std::type_info const& type;
+    const std::type_info& type;
     ValueType default_value;
     
     template<typename T>
@@ -73,50 +73,16 @@ public:
         const std::vector<Variable>& vars,
         std::function<void(Context&)> begin_fn,
         std::function<void(Context&, int)> step_fn
-    ) : variables(vars), 
-        begin_function(begin_fn), 
-        step_function(step_fn),
-        steps_taken(0) {
-        // Initialize states with default values
-        for (const auto& var : variables) {
-            current_states[var.name] = var.default_value;
-            history[var.name] = std::vector<ValueType>();
-        }
-    }
+    );
 
-    void runSteps(int n) {
-        if (n <= 0) throw std::invalid_argument("Steps must be positive");
-        
-        Context context(this);
-        begin_function(context);
-        
-        for (int step = 0; step < n; ++step) {
-            step_function(context, step);
-            logStates();
-            steps_taken++;
-        }
-    }
+    void runSteps(int n);
 
     // Get the history of a specific variable
     template<typename T>
-    std::vector<T> getVariableHistory(const std::string& var_name) const {
-        auto it = history.find(var_name);
-        if (it == history.end()) 
-            throw std::runtime_error("Variable not found");
-            
-        std::vector<T> result;
-        for (const auto& value : it->second) {
-            result.push_back(std::get<T>(value));
-        }
-        return result;
-    }
+    std::vector<T> getVariableHistory(const std::string& var_name) const;
 
 private:
-    void logStates() {
-        for (const auto& [name, value] : current_states) {
-            history[name].push_back(value);
-        }
-    }
+    void logStates();
 
     friend class Context;
 };
@@ -136,10 +102,26 @@ T Context::getState(const std::string& name) const {
     return std::get<T>(it->second);
 }
 
-std::shared_ptr<Context> Context::past(int n) const {
+inline std::shared_ptr<Context> Context::past(int n) const {
     if (n < 1 || n > env->steps_taken)
         throw std::runtime_error("Invalid step number");
-        
+
+    // For simplicity, return a read-only context with no past functionality
     auto context = std::make_shared<Context>(env, true);
     return context;
 }
+
+// Implementation of SubSimulationEnv methods
+template<typename T>
+std::vector<T> SubSimulationEnv::getVariableHistory(const std::string& var_name) const {
+    auto it = history.find(var_name);
+    if (it == history.end())
+        throw std::runtime_error("Variable not found");
+
+    std::vector<T> result;
+    for (const auto& value : it->second) {
+        result.push_back(std::get<T>(value));
+    }
+    return result;
+}
+

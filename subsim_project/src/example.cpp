@@ -1,4 +1,4 @@
-#include "montecarlo.hpp"
+#include "../include/montecarlo.hpp"
 #include <iostream>
 #include <random>
 #include <cmath>
@@ -13,12 +13,9 @@ int main() {
         };
 
         // Create Monte Carlo simulation environment
-        MonteCarloSimulationEnv mc_env(variables, 100, 50); // 100 simulations, 50 steps each
-
-        // Random number generator
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::normal_distribution<> noise(0.0, 0.1);
+        int n_subsimulations = 100; // 100 simulations
+        int n_steps = 50;           // 50 steps each
+        MonteCarloSimulationEnv mc_env(variables, n_subsimulations, n_steps);
 
         // Define begin function
         mc_env.set_subsim_begin_callback([](Context& ctx) {
@@ -28,7 +25,10 @@ int main() {
         });
 
         // Define step function with random noise
-        mc_env.set_subsim_step_callback([&gen, &noise](Context& ctx, int step) {
+        mc_env.set_subsim_step_callback([](Context& ctx, int step) {
+            static thread_local std::mt19937 gen(std::random_device{}());
+            static thread_local std::normal_distribution<> noise(0.0, 0.1);
+
             double dt = 0.1;
             double pos = ctx.getState<double>("position");
             double vel = ctx.getState<double>("velocity");
@@ -36,7 +36,7 @@ int main() {
 
             // Add random noise to velocity
             double noisy_vel = vel + noise(gen);
-            
+
             ctx.setState<double>("position", pos + noisy_vel * dt);
             ctx.setState<double>("time", time + dt);
         });
@@ -55,7 +55,7 @@ int main() {
 
         // Generate histogram for final positions
         auto hist = mc_env.get_variable_histogram("position", 20, true);
-        
+
         std::cout << "\nHistogram of final positions:" << std::endl;
         for (size_t i = 0; i < hist.counts.back().size(); ++i) {
             std::cout << "[" << hist.bin_edges[i] << ", " << hist.bin_edges[i+1] << "): "
