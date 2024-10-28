@@ -6,7 +6,10 @@
                 "${workspaceFolder}/**",
                 "${vcpkgRoot}/arm64-osx/include",
                 "${workspaceFolder}/Projects/mujoco/build/_deps/glfw3-src/include",
-                "${workspaceFolder}/Projects/mujoco/include"
+                "${workspaceFolder}/Projects/mujoco/include",
+                "/Users/niharpatel/Desktop/Boston University Courses/open_spiel",
+                "/Users/niharpatel/Desktop/Boston University Courses/open_spiel/third_party/abseil-cpp",
+                "/Users/niharpatel/Desktop/Boston University Courses/open_spiel/third_party/pybind11/include"
             ],
             "defines": [],
             "macFrameworkPath": [
