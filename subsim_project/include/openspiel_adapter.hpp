@@ -9,6 +9,7 @@
 #include <thread>
 #include <mutex>
 
+
 class OpenSpielAdapter {
 public:
     struct GameStats {

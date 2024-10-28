@@ -129,6 +129,19 @@ subsim_lib/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsim_lib.dir/build.make CMakeFiles/subsim_lib.dir/build
 .PHONY : subsim_lib/fast
 
+#=============================================================================
+# Target rules for targets named subsim_executable
+
+# Build rule for target.
+subsim_executable: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 subsim_executable
+.PHONY : subsim_executable
+
+# fast build rule for target.
+subsim_executable/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsim_executable.dir/build.make CMakeFiles/subsim_executable.dir/build
+.PHONY : subsim_executable/fast
+
 src/montecarlo.o: src/montecarlo.cpp.o
 .PHONY : src/montecarlo.o
 
@@ -152,6 +165,30 @@ src/montecarlo.s: src/montecarlo.cpp.s
 src/montecarlo.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsim_lib.dir/build.make CMakeFiles/subsim_lib.dir/src/montecarlo.cpp.s
 .PHONY : src/montecarlo.cpp.s
+
+src/openspiel_test.o: src/openspiel_test.cpp.o
+.PHONY : src/openspiel_test.o
+
+# target to build an object file
+src/openspiel_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsim_executable.dir/build.make CMakeFiles/subsim_executable.dir/src/openspiel_test.cpp.o
+.PHONY : src/openspiel_test.cpp.o
+
+src/openspiel_test.i: src/openspiel_test.cpp.i
+.PHONY : src/openspiel_test.i
+
+# target to preprocess a source file
+src/openspiel_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsim_executable.dir/build.make CMakeFiles/subsim_executable.dir/src/openspiel_test.cpp.i
+.PHONY : src/openspiel_test.cpp.i
+
+src/openspiel_test.s: src/openspiel_test.cpp.s
+.PHONY : src/openspiel_test.s
+
+# target to generate assembly for a file
+src/openspiel_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsim_executable.dir/build.make CMakeFiles/subsim_executable.dir/src/openspiel_test.cpp.s
+.PHONY : src/openspiel_test.cpp.s
 
 src/subsim.o: src/subsim.cpp.o
 .PHONY : src/subsim.o
@@ -185,10 +222,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... subsim_executable"
 	@echo "... subsim_lib"
 	@echo "... src/montecarlo.o"
 	@echo "... src/montecarlo.i"
 	@echo "... src/montecarlo.s"
+	@echo "... src/openspiel_test.o"
+	@echo "... src/openspiel_test.i"
+	@echo "... src/openspiel_test.s"
 	@echo "... src/subsim.o"
 	@echo "... src/subsim.i"
 	@echo "... src/subsim.s"
